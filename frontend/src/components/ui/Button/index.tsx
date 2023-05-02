@@ -11,7 +11,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 export function Button({ loading, children, ...rest }: ButtonProps) {
     return (
         <button
-            className="w-full max-w-lg bg-red-900 rounded-md hover:brightness-150 py-2 px-8 transition-all duration-200 ease-in"
+            className="w-full bg-red-900 rounded-md hover:brightness-150 py-2 px-8 transition-all duration-200 ease-in"
             disabled={loading}
             {...rest}>
             {

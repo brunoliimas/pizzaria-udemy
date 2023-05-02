@@ -12,7 +12,7 @@ export function Input({ ...rest }: InputProps) {
     return (
         <input
             {...rest}
-            className="mb-4 h-10 rounded-sm bg-dark-900 text-white p-4 border border-gray-100 placeholder:text-white placeholder:opacity-50"
+            className="w-full mb-4 h-10 rounded-sm bg-dark-900 text-white p-4 border border-gray-100 placeholder:text-white placeholder:opacity-50"
         />
     )
 }
