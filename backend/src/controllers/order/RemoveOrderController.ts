@@ -7,9 +7,9 @@ class RemoveOrderController {
     async handle(req: Request, res: Response) {
         const order_id = req.query.order_id as string;
 
-        const removeOrder = new RemoveOrderService();
+        const removeOrderService = new RemoveOrderService();
 
-        const order = await removeOrder.execute({
+        const order = await removeOrderService.execute({
             order_id
         })
 
