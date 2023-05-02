@@ -1,9 +1,31 @@
+import Head from "next/head"
+import Image from "next/image"
+
+import logoImg from '../../public/assets/tab-logo.svg'
+import { Input } from "@/components/ui/Input"
+import { Button } from "@/components/Button"
 
 export default function Home() {
   return (
-    <main className="flex flex-col items-center justify-center h-screen bg-yellow-100 p-10">
-      <h1 className="font-bold text-2xl">Bruno Lima</h1>
-      <p className="mt-10 text-green-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias voluptatem modi excepturi qui tempore perferendis, porro aliquam adipisci numquam placeat dolore mollitia ut blanditiis laboriosam magni. Vitae inventore eligendi mollitia?</p>
-    </main>
+    <>
+      <Head>
+        <title>CiaoPizzaria - Faça seu login</title>
+      </Head>
+      <main className="h-screen flex flex-col items-center justify-center">
+        <Image className="mb-5" src={logoImg} width={200} alt="Tab" />
+        <div>
+          <form className="flex flex-col items-center justify-center">
+            <Input type="text" placeholder="Digite seu e-mail" />
+            <Input type="password" placeholder="Digite sua senha" />
+            <Button
+              type="submit"
+              loading={false}
+            >
+              Acessar
+            </Button>
+          </form>
+        </div>
+      </main>
+    </>
   )
 }

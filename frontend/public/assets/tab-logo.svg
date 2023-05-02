@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Camada_2" data-name="Camada 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 649.57 490">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        fill: #ff006e;
+      }
+
+      .cls-3 {
+        fill: #540c6f;
+      }
+
+      .cls-4 {
+        opacity: 0;
+      }
+
+      .cls-5 {
+        fill: #ed1b24;
+      }
+
+      .cls-6 {
+        fill: #22b573;
+      }
+
+      .cls-7 {
+        fill: #8437e9;
+      }
+
+      .cls-8 {
+        fill: #ffbe0c;
+      }
+    </style>
+  </defs>
+  <g id="Camada_2-2" data-name="Camada 2">
+    <g>
+      <g id="Camada_2-2" data-name="Camada 2-2">
+        <g>
+          <rect class="cls-3" x="160" y="160" width="330" height="330" rx="20" ry="20"/>
+          <rect class="cls-3" x="160" y="95" width="130" height="130" rx="20" ry="20"/>
+          <rect class="cls-3" x="95" y="160" width="130" height="130" rx="20" ry="20"/>
+          <rect class="cls-5" x="60" y="60" width="80" height="80" rx="20" ry="20"/>
+          <rect class="cls-2" x="161" y="25" width="50" height="50" rx="20" ry="20"/>
+          <path class="cls-7" d="m20,60h0c11.05,0,20,8.95,20,20h0c0,11.05-8.95,20-20,20h0c-11.05,0-20-8.95-20-20h0c0-11.05,8.95-20,20-20Z"/>
+          <path class="cls-6" d="m80,0h0c11.05,0,20,8.95,20,20h0c0,11.05-8.95,20-20,20h0c-11.05,0-20-8.95-20-20h0c0-11.05,8.95-20,20-20Z"/>
+          <rect class="cls-8" x="25" y="160" width="50" height="50" rx="20" ry="20"/>
+          <path class="cls-1" d="m297.48,284.93h-37.47c-5.52,0-10-4.48-10-10v-24.93c0-5.52,4.48-10,10-10h130c5.52,0,10,4.48,10,10v24.93c0,5.52-4.48,10-10,10h-37.48c-.29,0-.52.23-.52.52v114.55c0,5.52-4.48,10-10,10h-34c-5.52,0-10-4.48-10-10v-114.55c0-.29-.23-.52-.52-.52h-.01Z"/>
+        </g>
+      </g>
+      <g class="cls-4">
+        <rect class="cls-3" x="359.57" y="95" width="130" height="130" rx="20" ry="20"/>
+        <rect class="cls-3" x="424.57" y="160" width="130" height="130" rx="20" ry="20"/>
+        <rect class="cls-5" x="509.57" y="60" width="80" height="80" rx="20" ry="20"/>
+        <rect class="cls-2" x="438.57" y="25" width="50" height="50" rx="20" ry="20"/>
+        <path class="cls-7" d="m629.57,60h0c-11.05,0-20,8.95-20,20h0c0,11.05,8.95,20,20,20h0c11.05,0,20-8.95,20-20h0c0-11.05-8.95-20-20-20Z"/>
+        <path class="cls-6" d="m569.57,0h0c-11.05,0-20,8.95-20,20h0c0,11.05,8.95,20,20,20h0c11.05,0,20-8.95,20-20h0c0-11.05-8.95-20-20-20Z"/>
+        <rect class="cls-8" x="574.57" y="160" width="50" height="50" rx="20" ry="20"/>
+      </g>
+    </g>
+  </g>
+</svg>
