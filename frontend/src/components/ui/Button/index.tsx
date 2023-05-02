@@ -20,7 +20,7 @@ export function Button({ loading, children, ...rest }: ButtonProps) {
                     <AiOutlineLoading3Quarters className='animate-spin' color='#fff' size={16} />
                 ) : (
                     <a
-                        className="text-white">
+                        className="text-white font-semibold">
                         {children}
                     </a>
                 )}
