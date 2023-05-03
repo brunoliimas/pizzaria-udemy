@@ -34,3 +34,8 @@ a {
 body {
   background-color: var(--dark-700);
 }
+
+.Toastify__toast-theme--dark {
+  background: var(--dark-900)!important;
+  color: var(--white);
+}

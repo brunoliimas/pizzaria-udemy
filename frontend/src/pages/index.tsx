@@ -1,4 +1,5 @@
 import { FormEvent, useContext, useState } from "react"
+import { toast } from "react-toastify"
 
 import Head from "next/head"
 import Link from "next/link"
@@ -23,7 +24,7 @@ export default function Home() {
         event.preventDefault();
 
         if(email === '' || password === ''){
-            alert("Preencha seus dados")
+            toast.warning("Preencha seus dados!")
             return;
         }
 
