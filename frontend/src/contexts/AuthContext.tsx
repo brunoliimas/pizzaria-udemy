@@ -10,6 +10,7 @@ type AuthContextData = {
     isAuthenticated: boolean;
     signIn: (credentials: SignInProps) => Promise<void>;
     signOut: () => void;
+    signUp: (credentials: SignUpProps) => Promise<void>;
 }
 type UserProps = {
     id: string;
@@ -20,10 +21,17 @@ type SignInProps = {
     email: string;
     password: string;
 }
+type SignUpProps = {
+    name: string;
+    email: string;
+    password: string;
+}
 
 type AuthProviderProps = {
     children: ReactNode;
 }
+
+
 
 export const AuthContext = createContext({} as AuthContextData)
 
@@ -62,21 +70,38 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 name,
                 email
             });
-
             // Passar para proximas req o nosso token
-
             api.defaults.headers['Authorization'] = `Bearer ${token}`
-
             // Redirecionar para aba dashboard
             Router.push("/dashboard");
 
         } catch (error) {
             console.log("Erro ao acessar ", error);
-
         }
     }
+
+
+    async function signUp({ name, email, password }: SignUpProps) {
+        try {
+            const response = await api.post('/users', {
+                name,
+                email,
+                password
+            });
+
+            console.log("Cadastro realizado com sucesso");
+
+            Router.push('/');
+
+        } catch (error) {
+            console.log("Erro ao cadastrar ", error);
+        }
+
+    }
+
+
     return (
-        <AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut }}>
+        <AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut, signUp }}>
             {children}
         </AuthContext.Provider>
     )
