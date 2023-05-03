@@ -4,6 +4,8 @@ import { toast } from "react-toastify"
 import Head from "next/head"
 import Link from "next/link"
 
+import { canSSRGuest } from "@/utils/canSSRGues"
+
 import { Input } from "@/components/ui/Input"
 import { Button } from "@/components/ui/Button"
 import { Logo } from "@/components/ui/Logo"
@@ -17,13 +19,12 @@ export default function Home() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
     const [loading, setLoading] = useState(false);
 
     async function handleLogin(event: FormEvent) {
         event.preventDefault();
 
-        if(email === '' || password === ''){
+        if (email === '' || password === '') {
             toast.warning("Preencha seus dados!")
             return;
         }
@@ -74,3 +75,9 @@ export default function Home() {
         </>
     )
 }
+
+export const getServerSideProps = canSSRGuest(async (ctx) => {
+    return {
+        props: {}
+    }
+})
