@@ -23,7 +23,7 @@ export function canSSRAuth<P extends { [key: string]: any }>(fn: GetServerSidePr
             if (error instanceof AuthTokenError) {
                 destroyCookie(ctx, '@nextauth.token');
 
-                return{
+                return {
                     redirect: {
                         destination: '/',
                         permanent: false,

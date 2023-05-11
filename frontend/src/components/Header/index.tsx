@@ -12,7 +12,7 @@ export default function Header() {
     return (
         <header className="px-4 py-4">
             <div className="container mx-auto flex justify-between items-center">
-                <Link href="/dashboard">
+                <Link rel="preload" href="/dashboard" as="image">
                     <Logo />
                 </Link>
 

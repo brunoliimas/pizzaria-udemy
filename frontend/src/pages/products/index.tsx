@@ -1,32 +1,45 @@
-import {useState, ChangeEvent} from 'react'
-import Head from "next/head"
+import { useState, ChangeEvent } from 'react';
+import Head from 'next/head';
 
 import { canSSRAuth } from '@/utils/canSSRAuth';
-import Header from "@/components/Header";
+import Header from '@/components/Header';
 
-import { FiUpload } from 'react-icons/fi'
+import { FiUpload } from 'react-icons/fi';
+import { setupAPIClient } from '@/services/api';
 
-export default function Product() {
+interface ItemProps {
+    id: string;
+    name: string;
+}
+
+interface CategoryProps {
+    categoryList: ItemProps[];
+}
+
+export default function Product({ categoryList }: CategoryProps) {
     const [avatarUrl, setAvatarUrl] = useState('');
     const [imageAvatar, setImageAvatar] = useState<File | null>(null);
+    const [categories, setCategories] = useState<ItemProps[]>(categoryList || []);
+    const [categorySelected, setCategorySelected] = useState<number>(0);
 
-    function handleFile(e: ChangeEvent<HTMLInputElement>){
-        if(!e.target.files){
-            return;
-        }
+    function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
+        const files = e.target.files;
+        if (!files) return;
 
-        const image = e.target.files[0];
+        const image = files[0];
+        if (!image) return;
 
-        if(!image){
-            return;
-        }
-
-        if(image.type === 'image/jpeg' || image.type === 'image/png'){
+        const isImageFileType = image.type === 'image/jpeg' || image.type === 'image/png';
+        if (isImageFileType) {
             setImageAvatar(image);
-            setAvatarUrl(URL.createObjectURL(e.target.files[0]))
+            setAvatarUrl(URL.createObjectURL(image));
         }
     }
 
+    function handleCategoryChange(e: ChangeEvent<HTMLSelectElement>) {
+        const selectedIndex = Number(e.target.value);
+        setCategorySelected(selectedIndex);
+    }
     return (
         <>
             <Head>
@@ -42,21 +55,28 @@ export default function Product() {
                         <span className="z-50 absolute opacity-50 transition-all duration-500 hover:scale-150 hover:opacity-100">
                             <FiUpload size={30} color="#fff" />
                         </span>
-                        <input className="hidden" type="file" accept="image/png, image/jpeg" onChange={handleFile} />
+                        <input className="hidden" type="file" accept="image/png, image/jpeg" onChange={handleFileChange} />
 
                         {avatarUrl && (
                             <img
-                            className='w-full'
-                            src={avatarUrl}
-                            alt="Foto do produto"/>
+                                className='w-full'
+                                src={avatarUrl}
+                                alt="Foto do produto" />
                         )}
                     </label>
 
 
-                    <select className="w-full mb-4 rounded-sm bg-dark-900 text-white p-4 border border-gray-100 placeholder:text-white placeholder:opacity-50" >
-                        <option>Bebidas</option>
-                        <option>Pizza Salgada</option>
-                        <option>Pizza Doce</option>
+                    <select
+                        onChange={handleCategoryChange}
+                        value={categorySelected}
+                        className="w-full mb-4 rounded-sm bg-dark-900 text-white p-4 border border-gray-100 placeholder:text-white placeholder:opacity-50" >
+                        {categories.map((item, index) => {
+                            return (
+                                <option key={item.id} value={String(index)}>
+                                    {item.name}
+                                </option>
+                            )
+                        })}
                     </select>
 
                     <input
@@ -84,8 +104,14 @@ export default function Product() {
         </>
     )
 }
-export const getServerSideProps = canSSRAuth(async (ctx) => {
+export const getServerSideProps = canSSRAuth(async (ctx: any) => {
+    const apliClient = setupAPIClient(ctx);
+
+    const response: any = await apliClient.get('/category');
+
     return {
-        props: {}
-    }
-})
+        props: {
+            categoryList: response.data
+        }
+    };
+});
