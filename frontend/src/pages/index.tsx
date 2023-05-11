@@ -43,7 +43,7 @@ export default function Home() {
     return (
         <>
             <Head>
-                <title>CiaoPizzaria - Entre na sua conta</title>
+                <title>Pizzaria Comanda - Entre na sua conta</title>
             </Head>
             <main className="h-screen flex flex-col items-center justify-center px-10 py-5">
                 <div className="mb-4">

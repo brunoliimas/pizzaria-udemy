@@ -8,7 +8,7 @@ export default function Dashboard() {
     return (
         <>
             <Head>
-                <title>CiaoPizzaria - Início</title>
+                <title>Pizzaria Comanda - Início</title>
             </Head>
             <Header />
             <main className="h-screen flex flex-col items-center justify-center px-10 py-5">

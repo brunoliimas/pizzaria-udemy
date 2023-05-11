@@ -45,7 +45,7 @@ export default function SignUp() {
     return (
         <>
             <Head>
-                <title>CiaoPizzaria - Faça seu cadastro</title>
+                <title>Pizzaria Comanda - Faça seu cadastro</title>
             </Head>
             <main className="h-screen flex flex-col items-center justify-center px-10 py-5">
                 <div className="mb-4">
