@@ -46,7 +46,9 @@ export default function Home() {
                 <title>CiaoPizzaria - Entre na sua conta</title>
             </Head>
             <main className="h-screen flex flex-col items-center justify-center px-10 py-5">
-                <Logo />
+                <div className="mb-4">
+                    <Logo />
+                </div>
                 <h1 className="mb-4 text-2xl font-bold text-white">Entrar</h1>
                 <div className="w-full max-w-xs">
                     <form onSubmit={handleLogin} className="flex flex-col items-center justify-center">
