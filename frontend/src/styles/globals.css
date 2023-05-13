@@ -39,3 +39,6 @@ body {
   background: var(--dark-900)!important;
   color: var(--white);
 }
+.Modal{
+  width: 100px!important;
+}

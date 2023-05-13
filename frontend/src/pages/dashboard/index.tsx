@@ -44,7 +44,7 @@ export type OrderItemProps = {
 export default function Dashboard({ orders }: HomeProps) {
 
     const [orderList, setOrderList] = useState(orders || []);
-    const [modalItem, setModalItem] = useState<OrderItemProps[]>()
+    const [modalItem, setModalItem] = useState<OrderItemProps[]>([])
     const [modalVisible, setModalVisible] = useState(false)
 
     function handleCloseModal() {
@@ -73,9 +73,9 @@ export default function Dashboard({ orders }: HomeProps) {
                 <title>Pizzaria Comanda - Início</title>
             </Head>
             <Header />
-            <main className="container mx-auto h-screen px-10 py-5">
+            <main className="container mx-auto max-w-2xl px-10 py-5">
                 <div className="flex items-center justify-between">
-                    <h1 className="text-4xl font-bold text-white">Últimos Pedidos</h1>
+                    <h1 className="mb-8 text-4xl font-bold text-white">Últimos Pedidos</h1>
                     <button>
                         <FiRefreshCcw size={25} color="#22b573" />
                     </button>
@@ -92,7 +92,10 @@ export default function Dashboard({ orders }: HomeProps) {
             </main>
 
             {modalVisible && (
-                <ModalOrder />
+                <ModalOrder
+                    isOpen={modalVisible}
+                    onRequestClose={handleCloseModal}
+                    order={modalItem} />
             )}
         </>
     )
