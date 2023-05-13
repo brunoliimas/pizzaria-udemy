@@ -15,6 +15,8 @@ export function ModalOrder({ isOpen, onRequestClose, order }: ModalOrderProps) {
 
     const customStyles = {
         content: {
+            width: '600px',
+            maxWidth: '600px',
             top: '50%',
             left: '50%',
             right: 'auto',
@@ -31,11 +33,12 @@ export function ModalOrder({ isOpen, onRequestClose, order }: ModalOrderProps) {
         <Modal
             isOpen={isOpen}
             onRequestClose={onRequestClose}
-            style={customStyles}>
+            style={customStyles}
+            className="relative">
             <button
                 type="button"
                 onClick={onRequestClose}
-                className="">
+                className="absolute top-2 right-2">
                 <FiX size={40} color="#ed1b24" />
             </button>
 
@@ -44,15 +47,17 @@ export function ModalOrder({ isOpen, onRequestClose, order }: ModalOrderProps) {
                 <span>Mesa: </span>
                 <span className="text-xl font-bold">{table}</span>
                 <div className="flex bg-dark-700 mt-4">
-                    <div className="w-1/5 px-2 py-1 border border-dark-900">QTD</div>
-                    <div className="w-2/5 px-2 py-1 border border-dark-900">Produto</div>
-                    <div className="w-2/5 px-2 py-1 border border-dark-900">Detalhes</div>
+                    <div className="w-[10%] px-2 py-1 border border-dark-900">QTD</div>
+                    <div className="w-[30%] px-2 py-1 border border-dark-900">Produto</div>
+                    <div className="w-[40%] px-2 py-1 border border-dark-900">Detalhes</div>
+                    <div className="w-[20%] px-2 py-1 border border-dark-900">Preço</div>
                 </div>
                 {order.map(item => (
                     <section key={item.id} className="flex">
-                        <span className="w-1/5 px-2 py-1 border border-dark-700">{item.amount}</span>
-                        <span className="w-2/5 px-2 py-1 border border-dark-700">{item.product.name}</span>
-                        <span className="w-2/5 px-2 py-1 border border-dark-700">{item.product.description}</span>
+                        <span className="w-[10%] px-2 py-1 border border-dark-700">{item.amount}</span>
+                        <span className="w-[30%] px-2 py-1 border border-dark-700">{item.product.name}</span>
+                        <span className="w-[40%] px-2 py-1 border border-dark-700">{item.product.description}</span>
+                        <span className="w-[20%] px-2 py-1 border border-dark-700">{item.product.price}</span>
                     </section>
                 ))}
             </div>
