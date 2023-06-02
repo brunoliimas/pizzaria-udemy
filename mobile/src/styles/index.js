@@ -7,8 +7,17 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#1d1d2e'
     },
+    text:{
+        color: '#f0f0f0',
+        fontSize: 16
+    },
     title: {
         fontSize: 32,
+        fontWeight: 'bold',
+        color: '#f0f0f0'
+    },
+    subtitle:{
+        fontSize: 28,
         fontWeight: 'bold',
         color: '#f0f0f0'
     },
