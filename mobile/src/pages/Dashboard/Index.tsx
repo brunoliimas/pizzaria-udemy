@@ -5,6 +5,7 @@ import { styles } from '../../styles';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { StackParamsList } from '../../routes/app.routes'
+import { api } from '../../services/api';
 
 
 
@@ -16,11 +17,26 @@ export default function Dashboard() {
 
     async function openOrder() {
         if (number === '') {
-            return
+            return;
         }
 
-        navigation.navigate('Order', { number: number, order_id: 'd3befae1-5411-469c-8416-eae5b919fdea' });
+        try {
+            const response = await api.post('/order', {
+                table: Number(number)
+            });
+
+            // console.log(response.data);
+
+            // Precisa fazer req e abrir a mesa e navegar para a próxima tela
+            navigation.navigate('Order', { number: number, order_id: response.data.id });
+
+            setNumber('');
+            
+        } catch (error) {
+            console.error(error);
+        }
     }
+
 
     return (
         <SafeAreaView style={styles.container}>
