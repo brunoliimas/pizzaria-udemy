@@ -4,9 +4,13 @@ import { Feather } from '@expo/vector-icons'
 
 import { styles } from "../../styles";
 import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { StackParamsList } from "../../routes/app.routes";
 
-type RouteDetailParams ={
-    FinishOrder:{
+import { api } from "../../services/api";
+
+type RouteDetailParams = {
+    FinishOrder: {
         number: number | string;
         order_id: string;
     }
@@ -17,9 +21,19 @@ type FinishOrderRouteProp = RouteProp<RouteDetailParams, 'FinishOrder'>
 
 export default function FinishOrder() {
     const route = useRoute<FinishOrderRouteProp>();
+    const navigation = useNavigation<NativeStackNavigationProp<StackParamsList>>()
 
     async function handleFinish() {
-        alert('clicoi')
+        try {
+            await api.put('/order/send', {
+                order_id: route.params?.order_id
+            })
+
+            navigation.popToTop();
+        } catch (error) {
+            console.log("Erro ao finalizar, tente mais tarde");
+
+        }
     }
 
     return (
@@ -59,12 +73,12 @@ const selfStyle = StyleSheet.create({
     icon: {
         marginLeft: 10
     },
-    content:{
+    content: {
         alignItems: 'center',
 
     },
     table: {
-        width: 200, 
+        width: 200,
         height: 200
     }
 })
