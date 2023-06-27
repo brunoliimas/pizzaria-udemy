@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
-import { Feather } from '@expo/vector-icons'
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Modal } from 'react-native'
+import { Feather, AntDesign } from '@expo/vector-icons'
 import { styles } from '../../styles'
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native'
 import { api } from '../../services/api'
-
+import { ModalPicker } from '../../components/ModalPicker'
 
 type RouteDetailsParams = {
     Order: {
@@ -13,7 +13,12 @@ type RouteDetailsParams = {
     }
 }
 
-type CategoryProps = {
+export type CategoryProps = {
+    id: string;
+    name: string;
+}
+
+type ProductProps = {
     id: string;
     name: string;
 }
@@ -25,9 +30,15 @@ export default function Order() {
     const navigation = useNavigation();
 
     const [category, setCategory] = useState<CategoryProps[] | []>([]);
-    const [categorySelected, setCategorySelected] = useState<CategoryProps>();
+    const [categorySelected, setCategorySelected] = useState<CategoryProps | undefined>();
+    const [modalCategoryVisible, setModalCategoryVisible] = useState(false);
+
+    const [products, setProducts] = useState<ProductProps[] | []>([])
+    const [productSelected, setProductSelected] = useState<ProductProps | undefined>()
+    const [modalProductVisible, setModalProductVisible] = useState(false);
 
     const [amount, setAmount] = useState('1')
+
 
     useEffect(() => {
         async function loadInfo() {
@@ -39,6 +50,23 @@ export default function Order() {
         loadInfo();
 
     }, [])
+
+    useEffect(() => {
+        async function loadProducts() {
+            const response = await api.get('/category/product', {
+                params: {
+                    category_id: categorySelected?.id
+                }
+            })
+
+            setProducts(response.data);
+            setProductSelected(response.data[0])
+        }
+
+        loadProducts();
+
+    }, [categorySelected])
+
 
     async function handleCloseOrder() {
         try {
@@ -55,6 +83,10 @@ export default function Order() {
         }
     }
 
+    function handleChangeCategory(item: CategoryProps) {
+        setCategorySelected(item);
+    }
+
     return (
         <View style={[styles.container, selfStyle.container]}>
             <View style={selfStyle.main}>
@@ -66,17 +98,24 @@ export default function Order() {
                 </View>
 
                 {category.length !== 0 && (
-                    <TouchableOpacity style={selfStyle.input}>
+                    <TouchableOpacity style={selfStyle.input} onPress={() => setModalCategoryVisible(true)}>
                         <Text style={styles.text}>
                             {categorySelected?.name}
+                        </Text>
+                        <AntDesign name="down" size={24} color="#fff" />
+                    </TouchableOpacity>
+                )}
+
+
+                {products.length !== 0 && (
+                    <TouchableOpacity style={selfStyle.input}>
+                        <Text style={styles.text}>
+                            {productSelected?.name}
                         </Text>
                     </TouchableOpacity>
                 )}
 
 
-                <TouchableOpacity style={selfStyle.input}>
-                    <Text style={styles.text}>Pizza de calabresa</Text>
-                </TouchableOpacity>
                 <View style={selfStyle.rowContainer}>
                     <Text style={styles.subtitle}>Quantidade</Text>
                     <TextInput
@@ -96,6 +135,18 @@ export default function Order() {
                     <Text style={styles.buttonText}>Avançar</Text>
                 </TouchableOpacity>
             </View>
+
+            <Modal
+                transparent={true}
+                visible={modalCategoryVisible}
+                animationType='slide'
+            >
+                <ModalPicker
+                    handleCloseModal={() => setModalCategoryVisible(false)}
+                    options={category}
+                    selectedItem={handleChangeCategory}
+                />
+            </Modal>
         </View>
     )
 }
@@ -138,7 +189,10 @@ const selfStyle = StyleSheet.create({
         borderRadius: 4,
         height: 60,
         marginBottom: 14,
-        justifyContent: 'center',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
         paddingHorizontal: 8,
         color: '#f0f0f0',
         fontSize: 24
