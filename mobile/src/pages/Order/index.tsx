@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { 
-    View, 
-    Text, 
-    StyleSheet, 
-    TouchableOpacity, 
-    TextInput, 
+import {
+    View,
+    Text,
+    StyleSheet,
+    TouchableOpacity,
+    TextInput,
     Modal,
-    FlatList 
+    FlatList
 } from 'react-native'
 import { Feather, AntDesign } from '@expo/vector-icons'
 import { styles } from '../../styles'
@@ -104,9 +104,22 @@ export default function Order() {
         setProductSelected(item);
     }
 
+    // adicionando produto a mesa
     async function handleAdd() {
-        console.log("Clicou");
-        
+        const response = await api.post('/order/add', {
+            order_id: route.params?.order_id,
+            product_id: productSelected?.id,
+            amount: Number(amount)
+        })
+
+        let data = {
+            id: response.data.id,
+            product_id: productSelected?.id as string,
+            name: productSelected?.name as string,
+            amount: amount
+        }
+        setItems(oldArray => [...oldArray, data])
+        setAmount('1')
     }
 
     return (
@@ -114,9 +127,11 @@ export default function Order() {
             <View style={selfStyle.main}>
                 <View style={selfStyle.header}>
                     <Text style={styles.title}>Mesa - {route.params.number}</Text>
-                    <TouchableOpacity style={selfStyle.button} onPress={handleCloseOrder}>
-                        <Feather size={28} name='trash-2' color='#fff' />
-                    </TouchableOpacity>
+                    {items.length === 0 && (
+                        <TouchableOpacity style={selfStyle.button} onPress={handleCloseOrder}>
+                            <Feather size={28} name='trash-2' color='#fff' />
+                        </TouchableOpacity>
+                    )}
                 </View>
 
                 {category.length !== 0 && (
@@ -165,12 +180,12 @@ export default function Order() {
 
             </View>
 
-            <FlatList 
+            <FlatList
                 showsVerticalScrollIndicator={false}
-                style={{flex: 1, marginTop: 24}}
+                style={{ flex: 1, marginTop: 24 }}
                 data={items}
-                keyExtractor={(item)=> item.id}
-                renderItem={({item})=> <ListItem data={item}/>}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => <ListItem data={item} />}
             />
 
             <Modal
